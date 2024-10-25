@@ -34,13 +34,3 @@ public class EmailValidation {
     }
 }
 
-/*
-girrrlll you need to keep your mouth shut
-come up with rumours and a good deceiver doen't say "I'm such a liar OMG"
-music I've been listening to this week
-ootds
-
- * The *** effect saves my day
- * It's on a hot friday afternoon and your girl it taking green tea while coding
- * 
- */
