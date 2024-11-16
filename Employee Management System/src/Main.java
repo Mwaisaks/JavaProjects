@@ -20,6 +20,7 @@ public class Main {
     }
 }
 
+
 /*
 Project 2: Employee Management System (Using Comparable)
 Goal: Create an employee management system that sorts employees based on a natural order (e.g., employee ID or last name).
