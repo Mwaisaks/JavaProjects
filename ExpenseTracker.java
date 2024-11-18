@@ -1,4 +1,7 @@
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ExpenseTracker {
@@ -35,7 +38,34 @@ public class ExpenseTracker {
 
         try {
             if (file.createNewFile()){
+                System.out.println("No previous records found. A new expense file has been created.");
 
+                FileWriter writer = new FileWriter(FILE_PATH);
+                writer.write();
+            }
+        }
+        catch (IOException e){
+            System.out.println("Error creating the file");
+            e.printStackTrace();
+        }
+    }
+
+    private static void displayExpenses(){
+        File file = new File(FILE_PATH);
+
+        if (!file.exists() || file.length() == 0){
+            System.out.println("No expenses found. Please add some expenses first.");
+            return;
+        }
+
+        ArrayList<String> expenses = new ArrayList<>();
+        try{
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNextLine()){
+                expenses.add(fileScanner.nextLine());
+            }
+            catch (Exception e){
+                System.out.println("Error reading this file.");
             }
         }
     }
