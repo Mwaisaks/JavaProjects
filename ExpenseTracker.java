@@ -1,28 +1,41 @@
+import java.io.File;
 import java.util.Scanner;
 
 public class ExpenseTracker {
+    private static final String FILE_PATH = "expenses.txt";
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int choice;
 
-        do{
-            System.out.println("\n === Expense Tracker ===");
+        ensureFileExists();
+        System.out.println("\n === Welcome to the Expense Tracker ===");
+        displayExpenses();
+
+        do {
+            System.out.println("\nChoose an action: ");
             System.out.println("1. Add a new expense");
-            System.out.println("2. View all expenses");
-            System.out.println("3. Calculate total expenses");
-            System.out.println("4. Reset (delete all records");
-            System.out.println("5. Exit");
-            System.out.println("Enter your choice: ");
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            System.out.println("2. Delete an expense");
+            System.out.println("3. Delete all expenses");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
 
-            switch (choice){
-                case 1 -> addExpense(scanner); //what kind of a syntax is this?
-                case 2 -> viewExpenses();
-                case 3 -> calculateTotal();
-                case 4 -> resetExamples();
-                case 5 -> System.out.println("Exiting...Thabk you for using the Expense Tracker!");
-                default -> System.out.println("Invalid choice.Please try again");
+            switch(choice){
+                case 1 -> addExpemse(scanner);
+                case 2 -> deleteSpecificExpense(scanner);
+                case 3 -> deleteAllExpenses();
+                case 4 -> System.out.println("Exiting... \n Thank you for using the Expense Tracker!");
+            }
+        }
+        while (choice != 4);
+    }
+
+    private static void ensureFileExists(){
+        File file = new File(FILE_PATH);
+
+        try {
+            if (file.createNewFile()){
+
             }
         }
     }
