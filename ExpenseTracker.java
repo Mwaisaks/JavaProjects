@@ -53,20 +53,38 @@ public class ExpenseTracker {
     private static void displayExpenses(){
         File file = new File(FILE_PATH);
 
+        if (!file.exists() || file.length() == o){
+            System.out.println("No expenses found. Please add some expenses.");
+            return;
+        }
+
+        try{
+            Scanner scanner
+        }
+            catch (Exception e){
+                System.out.println("Error reading this file.");
+            }
+        }
+    }
+
+    private static void deleteSpecificExpense(Scanner scanner){
+        File file = new File(FILE_PATH);
+
         if (!file.exists() || file.length() == 0){
             System.out.println("No expenses found. Please add some expenses first.");
             return;
         }
 
         ArrayList<String> expenses = new ArrayList<>();
-        try{
+        try {
             Scanner fileScanner = new Scanner(file);
-            while (fileScanner.hasNextLine()){
+            while (fileScanner.hasNextLine()) {
                 expenses.add(fileScanner.nextLine());
             }
-            catch (Exception e){
-                System.out.println("Error reading this file.");
-            }
         }
+        catch (Exception e){
+            System.out.println("Error reading the file.");
+            e.printStackTrace();
+            return;
     }
 }
