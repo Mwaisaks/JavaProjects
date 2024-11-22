@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ExpensesTracker {
@@ -84,9 +85,64 @@ public class ExpensesTracker {
     }
 
     private static void addExpense(Scanner scanner){
+        //if we initislised a Sacnner object here would it be the same as passing the scanner object as a parameter?
         try{
-            FileWriter fileWriter = new FileWriter(FILE_PATH, true);//what's the role of true here?
-            LocalDate
+            FileWriter writer = new FileWriter(FILE_PATH, true);//what's the role of true here?
+            LocalDate currentDate = LocalDate.now();
+            System.out.print("Enter amount: ");
+            double amount = scanner.nextDouble();
+            scanner.nextLine();
+            System.out.println("Enter description: ");
+            String description = scanner.nextLine();
+
+            String expenseRecord = currentDate + " | " + amount + " | " + description;
+            writer.write(expenseRecord + "\n");
+
+            System.out.println("Expense added successfully!");
         }
+        catch (IOException e){
+            System.out.println("Error writing to the file.");
+            e.printStackTrace();
+        }
+    }
+
+    private static void deleteSpecificExpense(Scanner scanner){
+        File file = new File(FILE_PATH);
+
+        if (!file.exists() || file.length() == 0){
+            System.out.println("No expenses found. Please add some expenses first.");
+            return;
+        }
+
+        //Shouldn't this part be in the addExapenses method
+        ArrayList<String> expenses = new ArrayList<>();
+        try {
+            Scanner fileScannner = new Scanner(file);
+
+            while (fileScannner.nextLine()){
+                expenses.add(fileScannner.nextLine());
+            }
+        }
+        catch (Exception e){
+            System.out.println("Error reading the file.");
+            e.printStackTrace();
+            return;
+        }
+
+        //or we could just call the displayExpenses method
+        //Display expenses with indices
+        System.out.println("\n=== Current Expenses ===");
+        for (int i = 0; i < expenses.size(); i++){
+            System.out.println((i + 1) + ". " + expenses.get(i));
+        }
+
+        System.out.print("Enter the number of the expense to delete: ");
+        int index = scanner.nextInt() - 1;
+
+        if (index < 0 || index >= expenses.size()){
+            System.out.println("Invalid index. No expense deleted.");
+            return;
+        }
+        expenses.remove(index);
     }
 }
