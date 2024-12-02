@@ -114,12 +114,12 @@ public class ExpensesTracker {
             return;
         }
 
-        //Shouldn't this part be in the addExapenses method
+        //Shouldn't this part be in the addExpenses method
         ArrayList<String> expenses = new ArrayList<>();
         try {
             Scanner fileScannner = new Scanner(file);
 
-            while (fileScannner.nextLine()){
+            while (fileScannner.hasNextLine()){
                 expenses.add(fileScannner.nextLine());
             }
         }
@@ -144,5 +144,41 @@ public class ExpensesTracker {
             return;
         }
         expenses.remove(index);
+
+        //Rewrite the file
+        //You mean it's not going to adjust itself after deletion?
+        try{
+            FileWriter writer = new FileWriter(FILE_PATH);
+
+            for(String expense : expenses){
+                writer.write(expense + "/n");
+            }
+            System.out.println("Expense deleted successfully!");
+        }
+        catch (IOException e){
+            System.out.println("Error writing to the file.");
+            e.printStackTrace();
+        }
+    }
+
+    private static void deleteAllExpenses(){
+        File file = new File(FILE_PATH);
+
+        if(file.delete()){
+            ensureFileExists();
+            System.out.println("All expenses have been deleted.");
+        }
+        else {
+            System.out.println("Error deleting the expenses.");
+        }
+
+        //how about this version of the if-statement above
+        if (file.exists()){
+            file.delete();
+            System.out.println("All expenses have been deleted.");
+        }
+        else {
+            System.out.println("Error deleting the expenses!");
+        }
     }
 }
